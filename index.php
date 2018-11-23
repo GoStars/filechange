@@ -4,10 +4,8 @@
     $input_handler = fopen('data/input.csv', 'r');
     // Open changedphone.csv file for write
     $changed_phone = fopen('data/changedphone.csv', 'w');
-    // Loop through data until end of file
-    while (!feof($input_handler)) {
-        // Get .scv file
-        $line_of_text = fgetcsv($input_handler, 512);
+    // Get .scv file
+    while (false !== ($line_of_text = fgetcsv($input_handler))) {
         // Remove everything exept numbers from phone field
         $replaced_phone = str_replace(['+', '-', '(', ')', ' '], '', $line_of_text[6]);
         // Replace existing data with changed one
@@ -24,8 +22,7 @@
     $changed_phone_handler = fopen('data/changedphone.csv', 'r');
     $changed_date = fopen('data/changeddate.csv', 'w');
 
-    while (!feof($changed_phone_handler)) {
-        $line_of_text = fgetcsv($changed_phone_handler, 512);
+    while (false !== ($line_of_text = fgetcsv($changed_phone_handler))) {
         // Change format of a date 
         // Convert string from file to date format
         $my_date = date("d-m-Y", strtotime($line_of_text[8]));
@@ -43,8 +40,7 @@
     $changed_date_handler = fopen('data/changeddate.csv', 'r');
     $output = fopen('data/output.csv', 'w');
 
-    while (!feof($changed_date_handler)) {
-        $line_of_text = fgetcsv($changed_date_handler, 512);
+    while (false !== ($line_of_text = fgetcsv($changed_date_handler))) {
         $replaced = str_replace('01.01.1970', 'birthday', $line_of_text[8]);
         $final = str_replace($line_of_text[8], $replaced, $line_of_text);
 
