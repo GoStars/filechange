@@ -50,5 +50,8 @@
     // Close files
     fclose($changed_date_handler);
     fclose($output);
+    // Remove not needed files
+    unlink('data/changedphone.csv');
+    unlink('data/changeddate.csv');
 
 
